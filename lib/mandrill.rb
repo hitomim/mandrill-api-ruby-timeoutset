@@ -8,13 +8,13 @@ require 'mandrill/api'
 module Mandrill
     class API
 
-        attr_accessor :host, :path, :apikey, :debug, :session
+        attr_accessor :host, :path, :apikey, :debug, :session, :timeout
 
-        def initialize(apikey=nil, debug=false)
+        def initialize(apikey=nil, debug=false, timeout=60)
             @host = 'https://mandrillapp.com'
             @path = '/api/1.0/'
 
-            @session = Excon.new @host
+            @session = Excon.new @host, connect_timeout: timeout
             @debug = debug
 
             if not apikey
